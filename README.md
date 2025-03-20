@@ -45,9 +45,9 @@ Ejemplo de ejecución para una instancia (por ejemplo, WEING6.DAT):
 #### Buena configuración del 1 al 6
 
 ```sh
-python3 -m src.main --instance knapsack_data/WEING1.DAT \
+python3 -m src.main --instance knapsack_data/WEING2.DAT \
   --threads 4 \
-  --aco_ants 100 --aco_iterations 200 --aco_stagnation 60 \
+  --aco_ants 5 --aco_iterations 400 --aco_stagnation 150 \
   --ga_generations 200 --ga_pop_size 220 --ga_stop_criteria saturate_150 --ga_crossover two_points --ga_mutation 0.05 --ga_k_tournament 4
 ```
 
@@ -56,7 +56,7 @@ python3 -m src.main --instance knapsack_data/WEING1.DAT \
 ```sh
 python3 -m src.main --instance knapsack_data/WEING7.DAT \
   --threads 4 \
-  --aco_ants 120 --aco_iterations 800 --aco_stagnation 200 \
+  --aco_ants 100 --aco_iterations 800 --aco_stagnation 200 \
   --ga_generations 700 --ga_pop_size 260 --ga_stop_criteria saturate_250 --ga_crossover two_points --ga_mutation 0.01 --ga_k_tournament 2
 ```
 
