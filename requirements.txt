@@ -1,0 +1,6 @@
+acopy
+pygad
+networkx
+matplotlib
+pandas
+numpy
