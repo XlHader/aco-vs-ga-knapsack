@@ -56,7 +56,7 @@ python3 -m src.main --instance knapsack_data/WEING1.DAT \
 ```sh
 python3 -m src.main --instance knapsack_data/WEING7.DAT \
   --threads 4 \
-  --aco_ants 100 --aco_iterations 500 --aco_stagnation 150 \
+  --aco_ants 120 --aco_iterations 800 --aco_stagnation 200 \
   --ga_generations 700 --ga_pop_size 260 --ga_stop_criteria saturate_250 --ga_crossover two_points --ga_mutation 0.01 --ga_k_tournament 2
 ```
 

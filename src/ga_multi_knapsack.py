@@ -42,6 +42,19 @@ class GAMultiKnapsackSolver:
         from src.knapsack_loader import MultiConstraintKnapsackProblem
         self.problem = MultiConstraintKnapsackProblem(instance_file)
 
+    def check_optimality(self, current_value):
+        """
+        Verifica si el valor actual ha alcanzado el óptimo o está muy cercano.
+        Devuelve True si se ha encontrado el óptimo (gap <= 0.001%).
+        """
+        if not self.problem.optimal_value:
+            return False
+
+        gap = (self.problem.optimal_value - current_value) / \
+            self.problem.optimal_value * 100
+        # Consideramos óptimo si el gap es 0.001% o menor
+        return abs(gap) <= 0.001
+
     def _is_feasible(self, solution):
         """Verifica si la solución cumple con todas las restricciones."""
         for i in range(self.problem.num_constraints):
@@ -112,6 +125,16 @@ class GAMultiKnapsackSolver:
             best_sol = ga_instance.best_solution()[0].astype(int)
             best_val = np.sum(np.array(self.problem.values) * best_sol)
             convergence.append(best_val)
+
+            # Verificar si hemos alcanzado el óptimo
+            if self.problem.optimal_value and self.check_optimality(best_val):
+                self.found_optimal = True
+                print(f"[GA] ¡SOLUCIÓN ÓPTIMA ENCONTRADA! Valor: {best_val}")
+                print(
+                    f"     El algoritmo se detendrá en la generación {ga_instance.generations_completed}")
+                # Forzar la detención del algoritmo
+                return "stop"
+
             if ga_instance.generations_completed % 10 == 0 or ga_instance.generations_completed == 1:
                 print(
                     f"[GA] Generación {ga_instance.generations_completed}/{self.num_generations} - Mejor valor: {best_val}")
@@ -119,6 +142,8 @@ class GAMultiKnapsackSolver:
                     gap = (self.problem.optimal_value - best_val) / \
                         self.problem.optimal_value * 100
                     print(f"     Gap al óptimo: {gap:.2f}%")
+
+            return None
 
         start_time = time.time()
 
