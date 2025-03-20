@@ -60,13 +60,13 @@ python3 -m src.main --instance knapsack_data/WEING7.DAT \
   --ga_generations 700 --ga_pop_size 260 --ga_stop_criteria saturate_250 --ga_crossover two_points --ga_mutation 0.01 --ga_k_tournament 2
 ```
 
-#### Buena configuración del 7 al 8
+#### Buena configuración 8
 
 ```sh
 python3 -m src.main --instance knapsack_data/WEING8.DAT \
   --threads 4 \
-  --aco_ants 300 --aco_iterations 700 --aco_stagnation 150 \
-  --ga_generations 700 --ga_pop_size 220 --ga_stop_criteria saturate_150 --ga_crossover two_points --ga_mutation 0.02 --ga_k_tournament 4
+  --aco_ants 120 --aco_iterations 800 --aco_stagnation 200 \
+  --ga_generations 800 --ga_pop_size 300 --ga_stop_criteria saturate_300 --ga_crossover two_points --ga_mutation 0.01 --ga_k_tournament 4
 ```
 
 ### Parámetros Clave
