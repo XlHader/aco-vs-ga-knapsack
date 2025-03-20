@@ -49,6 +49,8 @@ def parse_args():
                         help="Criterio de parada en GA (Ejemplo: 'saturate_150)")
     parser.add_argument("--ga_k_tournament", type=int, default=3,
                         help="Número de individuos en el torneo para selección")
+    parser.add_argument("--ga_number_of_parents_mating", type=int, default=50,
+                        help="Número de padres para el cruce")
 
     return parser.parse_args()
 
@@ -90,6 +92,7 @@ def main():
         crossover_probability=args.ga_crossover_prob,
         stop_criteria=args.ga_stop_criteria,
         k_tournament=args.ga_k_tournament,
+        num_parents_mating=args.ga_number_of_parents_mating,
         num_threads=args.threads,
     )
 
