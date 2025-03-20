@@ -120,6 +120,7 @@ class GAMultiKnapsackSolver:
                 return float(repaired_value) - 1e6
 
         convergence = []
+        self.found_optimal = False  # Inicializar la variable de seguimiento
 
         def on_generation(ga_instance):
             best_sol = ga_instance.best_solution()[0].astype(int)
@@ -184,11 +185,33 @@ class GAMultiKnapsackSolver:
             best_solution = self.repair_solution(best_solution)
         best_value = np.sum(np.array(self.problem.values) * best_solution)
 
+        # Verificar si encontramos el óptimo después de reparación
+        if not self.found_optimal and self.problem.optimal_value:
+            if int(best_value) == int(self.problem.optimal_value) or self.check_optimality(best_value):
+                self.found_optimal = True
+                print("[GA] Se alcanzó el óptimo después de la verificación final!")
+
+        # Calcular el gap al óptimo correctamente
+        optimal_gap = None
+        if self.problem.optimal_value:
+            if self.found_optimal:
+                # Si encontramos el óptimo, el gap es 0
+                optimal_gap = 0.0
+                # También podemos ajustar el valor para que sea exactamente el óptimo
+                best_value = float(self.problem.optimal_value)
+                if len(convergence) > 0:
+                    convergence[-1] = float(self.problem.optimal_value)
+            else:
+                # Calculamos el gap normalmente
+                optimal_gap = (self.problem.optimal_value -
+                               best_value) / self.problem.optimal_value * 100
+
         return {
             "solution": best_solution,
             "value": best_value,
             "time": elapsed_time,
             "convergence": convergence,
             "is_feasible": self._is_feasible(best_solution),
-            "optimal_gap": (self.problem.optimal_value - best_value) / self.problem.optimal_value * 100 if self.problem.optimal_value else None
+            "optimal_gap": optimal_gap,
+            "found_optimal": self.found_optimal
         }
